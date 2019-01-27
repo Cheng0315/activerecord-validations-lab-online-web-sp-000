@@ -6,6 +6,9 @@ class Post < ActiveRecord::Base
   validate :click_baity_title
 
   def click_baity_title
-    !["Won't Believe", "Secret", "Top 10", "Guess"].select {|ele| title.include?(ele)}.empty?
+    if title.present? && !["Won't Believe", "Secret", "Top 10", "Guess"].select {|ele| title.include?(ele)}.empty?
+      errors.add(:click_baity_title, "Not a click baity tittle")
+    end
+    
   end
 end
